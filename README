@@ -13,7 +13,8 @@ this is a java app build using jenkins
 			instal maven integration 
 		* navigat to tab jenkins > global tool configuration > maven : name = test
 		* navigate to tab jenkins > add new project > maven 
-		* in the source code management tab, choose git, and paste your java-app git repo
+		* in the source code management tab, choose git, and paste your java-app git repo 
+			ex : https://github.com/deyaa-m/java-Dockerfile.git
 		* in pre steps : invoke top-level maven targets , maven version: test, Goals : clean install 
 		* in post steps > add post-build step : execute shell : 
 				"cp /var/jenkins_home/workspace/java-jenkins/target/devopsarea-1.0.war /output/
