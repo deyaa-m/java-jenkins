@@ -1,0 +1,18 @@
+version : "3"
+services : 
+        jenkins : 
+                container_name : jenkins
+                image : jenkinsci/jenkins 
+                volumes : 
+                        - ./jenkins:/var/jenkins_home:rw
+                        - ./tomcat:/output:rw
+                ports : 
+                        - "8081:8080"
+
+        tomcat : 
+                container_name : tomcat
+                image : tomcat
+                volumes : 
+                        - ./tomcat:/usr/local/tomcat/webapps/:rw
+                ports : 
+                        - "8080:8080"

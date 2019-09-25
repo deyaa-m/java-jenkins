@@ -1,0 +1,25 @@
+this is a java app build using jenkins 
+
+* create 2 directories in your current workspace : jenkins and tomcat , give the appropriate permissions
+* docker-compose.yml will create 2 services : jenkins and tomcat
+	1- jenkins : 
+		- attach dir ./jenkins/ to /var/jenkins_home , which will make jenkins files persistent 
+		- attach dir ./tomcat/ to /output , which will hold the output file of the build process to be shared with tomcat container
+		* in your browser, navigate to ip:8081, which will present jenkins api
+		* copy the dir which holds the secret password for jenkins 
+		* in your terminal , docker exec jenkins cat "dir/to/secret/password"
+		* copy the password and paste it into jenkins api
+		* after setting up jenkins, navigate to tab jenkins > manage jenkins > manage plugins > available > maven , 
+			instal maven integration 
+		* navigat to tab jenkins > global tool configuration > maven : name = test
+		* navigate to tab jenkins > add new project > maven 
+		* in the source code management tab, choose git, and paste your java-app git repo
+		* in pre steps : invoke top-level maven targets , maven version: test, Goals : clean install 
+		* in post steps > add post-build step : execute shell : 
+				"cp /var/jenkins_home/workspace/java-jenkins/target/devopsarea-1.0.war /output/
+		* then save the project and build it, and we are done with jenkins
+
+
+	2- tomcat : 
+		- attach dir ./tomcat to /usr/local/tomcat/webapps , which will hold the output file to be extracted 
+		* navigate to ip:8080/devopsarea-1.0 
